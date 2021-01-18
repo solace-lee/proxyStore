@@ -30,7 +30,7 @@ import React from 'react'
 // 引入声明的ProxyStore
 import { testState } from '../testStore'
 
-const renderArea = () => {
+export default React.memo(function renderArea() {
   // 为testState创建名为‘renderArea’的依赖，依赖名必须为字符串，为同一个ProxyState创建同名的依赖会覆盖掉旧依赖。
   const [test, setTest] = testState.addDependency('renderArea')
 
@@ -51,8 +51,7 @@ const renderArea = () => {
       </div>
     </>
   )
-}
-export default React.memo(RightArea)
+})
 ```
 
 #### Js中使用
