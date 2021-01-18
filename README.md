@@ -16,6 +16,10 @@
 
 
 ### 使用
+
+#### 安装
+`npm i hooks-proxy-store`
+
 #### 引入依赖 创建变量
 ```
   import ProxyStore from 'proxyStore'
