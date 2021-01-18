@@ -9,7 +9,7 @@
   "types": "/src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/solace-lee"
+    "url": "https://github.com/solace-lee/proxyStore"
   },
   "keywords": [
     "proxy",
