@@ -1,0 +1,30 @@
+{
+  "name": "proxystore",
+  "version": "1.0.0",
+  "description": "React proxyStore hooks",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "main.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/solace-lee"
+  },
+  "keywords": [
+    "proxy",
+    "store",
+    "redux",
+    "hooks",
+    "react"
+  ],
+  "author": "solace",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "typescript": "^4.1.3"
+  }
+}
