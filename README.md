@@ -1,7 +1,8 @@
 # proxyStore
  react hooks redux
 
- ## 开发初衷是想要一个轻量化的全局或局部可用的React状态管理工具。
+## 开发初衷是想要一个轻量化的全局或局部可用的React状态管理工具。
+### [npm地址](https://www.npmjs.com/package/hooks-proxy-store)
 
 ### 特点：
 1. 借鉴Vue的数据劫持方式，ES5采用defineProperty，其他采用Proxy方式。

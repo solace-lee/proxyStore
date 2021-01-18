@@ -1,5 +1,5 @@
 {
-  "name": "proxystore",
+  "name": "hooks-proxy-store",
   "version": "1.0.0",
   "description": "React proxyStore hooks",
   "main": "src/index.js",
