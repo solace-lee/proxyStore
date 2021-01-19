@@ -12,8 +12,8 @@ function AddDependency(name) {
         };
     }, [name]);
     return [a, function (value) {
-            _this.state.value = value;
-        }];
+        _this.state.value = value;
+    }];
 }
 var HooksProxyStore = /** @class */ (function () {
     function HooksProxyStore(initValue) {
