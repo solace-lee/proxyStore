@@ -16,7 +16,7 @@ function AddDependency(name) {
   }]
 }
 
-class ProxyStore {
+class HooksProxyStore {
   dependency
   state
   addDependency = AddDependency
@@ -80,4 +80,4 @@ class ProxyStore {
   }
 }
 
-export default ProxyStore
+export default HooksProxyStore

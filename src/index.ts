@@ -9,7 +9,7 @@ type stateType = {
 }
 
 
-function AddDependency(this: ProxyStore, name: string): [stateValue, Function] {
+function AddDependency(this: HooksProxyStore, name: string): [stateValue, Function] {
   // 添加依赖
   const [a, setA] = useState(this.state.value)
   this.dependency.set(name, setA) // 添加依赖
@@ -25,7 +25,7 @@ function AddDependency(this: ProxyStore, name: string): [stateValue, Function] {
   }]
 }
 
-class ProxyStore {
+class HooksProxyStore {
   public dependency: Map<string, Function>
   public state: stateType
   public addDependency: Function = AddDependency
@@ -89,4 +89,4 @@ class ProxyStore {
   }
 }
 
-export default ProxyStore
+export default HooksProxyStore

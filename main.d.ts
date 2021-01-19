@@ -1,4 +1,4 @@
-export default ProxyStore;
+export default HooksProxyStore;
 
 type stateValue = string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>
 
@@ -8,7 +8,7 @@ type stateType = {
     _value?: stateValue
 }
 
-declare class ProxyStore {
+declare class HooksProxyStore {
     constructor(initValue: stateValue);
     dependency: Map<string, Function>;
     state: stateType;

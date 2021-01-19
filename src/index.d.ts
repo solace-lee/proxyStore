@@ -7,7 +7,7 @@ type stateType = {
   _value?: stateValue
 }
 
-declare class ProxyStore {
+declare class HooksProxyStore {
   constructor(initValue: stateValue);
   dependency: Map<string, Function>;
   state: stateType;
@@ -21,5 +21,5 @@ declare class ProxyStore {
 }
 declare function AddDependency(this: any, name: string): [stateValue, Function];
 
-export default ProxyStore;
+export default HooksProxyStore;
 

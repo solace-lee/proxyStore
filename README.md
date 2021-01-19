@@ -1,4 +1,4 @@
-# proxyStore
+# HooksProxyStore
  react hooks redux
 
 ## 开发初衷是想要一个轻量化的全局或局部可用的React状态管理工具。
@@ -22,17 +22,17 @@
 
 #### 引入依赖 创建变量
 ```
-  import ProxyStore from 'proxyStore'
+  import HooksProxyStore from 'hooks-proxy-store'
 
-  // new ProxyStore() 传入的值为初始值，数据类型可以为 string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>`
-  export const testState = new ProxyStore({ any: 'any' })
+  // new HooksProxyStore() 传入的值为初始值，数据类型可以为 string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>`
+  export const testState = new HooksProxyStore({ any: 'any' })
 ```
 
 #### React组件中使用
 ```
 import React from 'react'
 
-// 引入声明的ProxyStore
+// 引入声明的HooksProxyStore
 import { testState } from '../testStore'
 
 export default React.memo(function renderArea() {
@@ -61,7 +61,7 @@ export default React.memo(function renderArea() {
 
 #### Js中使用
 ```
-// 引入声明的ProxyStore
+// 引入声明的HooksProxyStore
 import { testState } from '../testStore'
 
 function anyFunc() {
