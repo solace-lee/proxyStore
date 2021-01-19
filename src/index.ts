@@ -47,11 +47,11 @@ class HooksProxyStore {
   private _init(initValue: stateValue) {
     Object.defineProperty(this.state, 'value', {
       set: function (newValue: stateValue) {
-        for (let func of this.dependency.values()) {
+        this.dependency.forEach((func: Function) => {
           if (typeof func === 'function') {
             func(newValue)
           }
-        }
+        })
         this._value = newValue
       },
       get: function () {
@@ -65,11 +65,11 @@ class HooksProxyStore {
   private _handler(that: any) {
     return {
       set: function (target: any, key: string, value: stateValue) {
-        for (let func of that.dependency.values()) {
+        that.dependency.forEach((func: Function) => {
           if (typeof func === 'function') {
             func(value)
           }
-        }
+        })
         target[key] = value
         return true
       }
