@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
-type stateValue = string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>
+// type stateValue = string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>
+type stateValue = any
 
 type stateType = {
   value: stateValue,
