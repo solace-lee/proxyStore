@@ -9,7 +9,7 @@
 2. 可以在任意一个地方引用，有丰富的接口去管理依赖。
 3. 采用Map管理依赖数组，提升多依赖场景的性能。
 4. 采用React Hooks的语法，对useState生成的赋值方法进行劫持。
-5. ProxyStore使用了useEffect在页面销毁前进行了依赖删除。
+5. hooks-proxy-store使用了useEffect在页面销毁前进行了依赖删除。
 6. 通过数据劫持的方式，可以轻量地创建状态，维护状态，避免redux局部变量变更引起的大面积组件更新从而导致的性能问题。
 7. 可以脱离页面组件去使用，通过非页面组件去出发页面组件的更新。
 8. 采用TypeScript开发。
@@ -24,7 +24,7 @@
 ```
   import HooksProxyStore from 'hooks-proxy-store'
 
-  // new HooksProxyStore() 传入的值为初始值，数据类型可以为 string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>`
+  // new HooksProxyStore() 传入的值为初始值，数据类型为 any
   export const testState = new HooksProxyStore({ any: 'any' })
 ```
 
@@ -36,7 +36,7 @@ import React from 'react'
 import { testState } from '../testStore'
 
 export default React.memo(function renderArea() {
-  // 为testState创建名为‘renderArea’的依赖，依赖名必须为字符串，为同一个ProxyState创建同名的依赖会覆盖掉旧依赖。
+  // 为testState创建名为‘renderArea’的依赖，依赖名必须为字符串，为同一个HooksProxyStore创建同名的依赖会覆盖掉旧依赖。
   const [test, setTest] = testState.addDependency('renderArea')
 
   function changeValue() {
@@ -68,7 +68,7 @@ function anyFunc() {
   // 通过State获取数据
   const test = testState.state.value
 
-  // 直接修改state也能让依赖了该Store的组件同步更新（不建议），提供setValue方法修改值
+  // 直接修改state也能让依赖了该Store的组件同步更新（不建议），提供setValue方法显式地修改值
   testState.state.value = { any: '我是新的值' } // 不建议该方法
   testState.setValue({ any: '我是新的值' })
 
