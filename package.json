@@ -1,11 +1,12 @@
 {
   "name": "hooks-proxy-store",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React proxyStore hooks",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --lib \"es6, dom\" ./src/index.ts -d"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "@types/react": ">16.8.0",
     "react": ">16.8.0",
-    "@types/react": ">16.8.0"
+    "typescript": "^4.1.5"
   }
 }

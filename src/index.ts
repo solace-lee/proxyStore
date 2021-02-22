@@ -88,6 +88,10 @@ class HooksProxyStore {
   public setValue(value: stateValue) { // 修改值
     this.state.value = value
   }
+
+  public getValue(): stateValue { // 获取值
+    return this.state.value
+  }
 }
 
 export default HooksProxyStore
