@@ -7,7 +7,7 @@ declare type stateType = {
 declare class HooksProxyStore {
   dependency: Map<string, Function>;
   state: stateType;
-  addDependency: typeof AddDependency
+  addDependency: typeof AddDependency;
   constructor(initValue: stateValue);
   private _init(initValue: stateValue): void;
   private _handler(that: any): {

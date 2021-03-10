@@ -65,8 +65,9 @@ export default React.memo(function renderArea() {
 import { testState } from '../testStore'
 
 function anyFunc() {
-  // 通过State获取数据
-  const test = testState.state.value
+  // 通过State获取数据, 提供getValue方法显示获取值
+  const test = testState.state.value // 不建议该方法
+  const test = testState.getValue()
 
   // 直接修改state也能让依赖了该Store的组件同步更新（不建议），提供setValue方法显式地修改值
   testState.state.value = { any: '我是新的值' } // 不建议该方法

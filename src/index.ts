@@ -32,7 +32,7 @@ class HooksProxyStore {
   public addDependency: Function = AddDependency
   constructor(initValue: stateValue) {
     this.dependency = new Map()
-    if (!window.Proxy && typeof window.Proxy === 'function') {
+    if (window.Proxy && typeof window.Proxy === 'function') {
       this.state = new Proxy({ value: initValue }, this._handler(this))
     } else {
       this.state = {
@@ -48,12 +48,14 @@ class HooksProxyStore {
   private _init(initValue: stateValue) {
     Object.defineProperty(this.state, 'value', {
       set: function (newValue: stateValue) {
-        this.dependency.forEach((func: Function) => {
-          if (typeof func === 'function') {
-            func(newValue)
-          }
-        })
-        this._value = newValue
+        if (this._value !== newValue) {
+          this.dependency.forEach((func: Function) => {
+            if (typeof func === 'function') {
+              func(newValue)
+            }
+          })
+          this._value = newValue
+        }
       },
       get: function () {
         return this._value
@@ -66,12 +68,14 @@ class HooksProxyStore {
   private _handler(that: any) {
     return {
       set: function (target: any, key: string, value: stateValue) {
-        that.dependency.forEach((func: Function) => {
-          if (typeof func === 'function') {
-            func(value)
-          }
-        })
-        target[key] = value
+        if (target[key] !== value) {
+          that.dependency.forEach((func: Function) => {
+            if (typeof func === 'function') {
+              func(value)
+            }
+          })
+          target[key] = value
+        }
         return true
       }
     }

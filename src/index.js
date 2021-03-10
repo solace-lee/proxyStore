@@ -19,7 +19,7 @@ var HooksProxyStore = /** @class */ (function () {
     function HooksProxyStore(initValue) {
         this.addDependency = AddDependency;
         this.dependency = new Map();
-        if (!window.Proxy && typeof window.Proxy === 'function') {
+        if (window.Proxy && typeof window.Proxy === 'function') {
             this.state = new Proxy({ value: initValue }, this._handler(this));
         }
         else {
@@ -35,12 +35,14 @@ var HooksProxyStore = /** @class */ (function () {
     HooksProxyStore.prototype._init = function (initValue) {
         Object.defineProperty(this.state, 'value', {
             set: function (newValue) {
-                this.dependency.forEach(function (func) {
-                    if (typeof func === 'function') {
-                        func(newValue);
-                    }
-                });
-                this._value = newValue;
+                if (this._value !== newValue) {
+                    this.dependency.forEach(function (func) {
+                        if (typeof func === 'function') {
+                            func(newValue);
+                        }
+                    });
+                    this._value = newValue;
+                }
             },
             get: function () {
                 return this._value;
@@ -52,12 +54,14 @@ var HooksProxyStore = /** @class */ (function () {
     HooksProxyStore.prototype._handler = function (that) {
         return {
             set: function (target, key, value) {
-                that.dependency.forEach(function (func) {
-                    if (typeof func === 'function') {
-                        func(value);
-                    }
-                });
-                target[key] = value;
+                if (target[key] !== value) {
+                    that.dependency.forEach(function (func) {
+                        if (typeof func === 'function') {
+                            func(value);
+                        }
+                    });
+                    target[key] = value;
+                }
                 return true;
             }
         };
