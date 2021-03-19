@@ -36,12 +36,12 @@ var HooksProxyStore = /** @class */ (function () {
         Object.defineProperty(this.state, 'value', {
             set: function (newValue) {
                 if (this._value !== newValue) {
+                    this._value = newValue;
                     this.dependency.forEach(function (func) {
                         if (typeof func === 'function') {
                             func(newValue);
                         }
                     });
-                    this._value = newValue;
                 }
             },
             get: function () {
@@ -55,12 +55,12 @@ var HooksProxyStore = /** @class */ (function () {
         return {
             set: function (target, key, value) {
                 if (target[key] !== value) {
+                    target[key] = value;
                     that.dependency.forEach(function (func) {
                         if (typeof func === 'function') {
                             func(value);
                         }
                     });
-                    target[key] = value;
                 }
                 return true;
             }

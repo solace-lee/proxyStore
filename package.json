@@ -1,6 +1,6 @@
 {
   "name": "hooks-proxy-store",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React proxyStore hooks",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

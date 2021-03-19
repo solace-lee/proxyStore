@@ -49,12 +49,12 @@ class HooksProxyStore {
     Object.defineProperty(this.state, 'value', {
       set: function (newValue: stateValue) {
         if (this._value !== newValue) {
+          this._value = newValue
           this.dependency.forEach((func: Function) => {
             if (typeof func === 'function') {
               func(newValue)
             }
           })
-          this._value = newValue
         }
       },
       get: function () {
@@ -69,12 +69,12 @@ class HooksProxyStore {
     return {
       set: function (target: any, key: string, value: stateValue) {
         if (target[key] !== value) {
+          target[key] = value
           that.dependency.forEach((func: Function) => {
             if (typeof func === 'function') {
               func(value)
             }
           })
-          target[key] = value
         }
         return true
       }
