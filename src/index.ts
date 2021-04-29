@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // type stateValue = string | number | object | Array<stateValue> | Function | boolean | null | undefined | Map<stateValue, stateValue> | Set<stateValue>
 type stateValue = any;
@@ -16,18 +16,26 @@ function AddDependency(
 ): [stateValue, Function] {
   // 添加依赖
   const [a, setA] = useState(this.state.value);
+  const isMounted = useRef(true);
   if (late) {
     this.dependency.set(name, (value: stateValue) => {
       setTimeout(() => {
-        setA(value);
+        if (isMounted.current) {
+          setA(value);
+        }
       });
     }); // 添加依赖
   } else {
-    this.dependency.set(name, setA); // 添加依赖
+    this.dependency.set(name, (value: stateValue) => {
+      if (isMounted.current) {
+        setA(value);
+      }
+    }); // 添加依赖
   }
 
   useEffect(() => {
     return () => {
+      isMounted.current = false;
       this.dependency.delete(name);
     };
   }, [name]);

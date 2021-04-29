@@ -6,18 +6,26 @@ function AddDependency(name, late) {
     if (late === void 0) { late = false; }
     // 添加依赖
     var _a = react_1.useState(this.state.value), a = _a[0], setA = _a[1];
+    var isMounted = react_1.useRef(true);
     if (late) {
         this.dependency.set(name, function (value) {
             setTimeout(function () {
-                setA(value);
+                if (isMounted.current) {
+                    setA(value);
+                }
             });
         }); // 添加依赖
     }
     else {
-        this.dependency.set(name, setA); // 添加依赖
+        this.dependency.set(name, function (value) {
+            if (isMounted.current) {
+                setA(value);
+            }
+        }); // 添加依赖
     }
     react_1.useEffect(function () {
         return function () {
+            isMounted.current = false;
             _this.dependency["delete"](name);
         };
     }, [name]);
