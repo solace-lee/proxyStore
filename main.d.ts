@@ -17,5 +17,5 @@ declare class HooksProxyStore {
   setValue(value: stateValue): void;
   getValue(): stateValue;
 }
-declare function AddDependency(this: any, name: string): [stateValue, Function];
+declare function AddDependency(this: any, name: string, late?: boolean): [stateValue, Function];
 export default HooksProxyStore;

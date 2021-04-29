@@ -35,9 +35,12 @@ import React from 'react'
 // 引入声明的HooksProxyStore
 import { testState } from '../testStore'
 
+// addDependency(name, late), name为该组件唯一名字，重名将会覆盖已存在的set方法；late不传时默认值为false，设置为true时，会用setTimeout包裹set方法，用于不适合短时间大量同步更新组件的情况
+
 export default React.memo(function renderArea() {
   // 为testState创建名为‘renderArea’的依赖，依赖名必须为字符串，为同一个HooksProxyStore创建同名的依赖会覆盖掉旧依赖。
   const [test, setTest] = testState.addDependency('renderArea')
+  // const [test, setTest] = testState.addDependency('renderArea', true)
 
   function changeValue() {
     // 通过setTest方式修改值，其他引用了testState并添加了依赖的组件会同步更新

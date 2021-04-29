@@ -1,25 +1,38 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
-function AddDependency(name) {
+function AddDependency(name, late) {
     var _this = this;
+    if (late === void 0) { late = false; }
     // 添加依赖
     var _a = react_1.useState(this.state.value), a = _a[0], setA = _a[1];
-    this.dependency.set(name, setA); // 添加依赖
+    if (late) {
+        this.dependency.set(name, function (value) {
+            setTimeout(function () {
+                setA(value);
+            });
+        }); // 添加依赖
+    }
+    else {
+        this.dependency.set(name, setA); // 添加依赖
+    }
     react_1.useEffect(function () {
         return function () {
             _this.dependency["delete"](name);
         };
     }, [name]);
-    return [a, function (value) {
+    return [
+        a,
+        function (value) {
             _this.state.value = value;
-        }];
+        },
+    ];
 }
 var HooksProxyStore = /** @class */ (function () {
     function HooksProxyStore(initValue) {
         this.addDependency = AddDependency;
         this.dependency = new Map();
-        if (window.Proxy && typeof window.Proxy === 'function') {
+        if (window.Proxy && typeof window.Proxy === "function") {
             this.state = new Proxy({ value: initValue }, this._handler(this));
         }
         else {
@@ -33,12 +46,12 @@ var HooksProxyStore = /** @class */ (function () {
         return this;
     }
     HooksProxyStore.prototype._init = function (initValue) {
-        Object.defineProperty(this.state, 'value', {
+        Object.defineProperty(this.state, "value", {
             set: function (newValue) {
                 if (this._value !== newValue) {
                     this._value = newValue;
                     this.dependency.forEach(function (func) {
-                        if (typeof func === 'function') {
+                        if (typeof func === "function") {
                             func(newValue);
                         }
                     });
@@ -57,7 +70,7 @@ var HooksProxyStore = /** @class */ (function () {
                 if (target[key] !== value) {
                     target[key] = value;
                     that.dependency.forEach(function (func) {
-                        if (typeof func === 'function') {
+                        if (typeof func === "function") {
                             func(value);
                         }
                     });
@@ -75,9 +88,11 @@ var HooksProxyStore = /** @class */ (function () {
         }
     };
     HooksProxyStore.prototype.setValue = function (value) {
+        // 修改值
         this.state.value = value;
     };
     HooksProxyStore.prototype.getValue = function () {
+        // 获取值
         return this.state.value;
     };
     return HooksProxyStore;
