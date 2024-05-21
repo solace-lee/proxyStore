@@ -36,9 +36,29 @@ function AddDependency(name, late) {
         },
     ];
 }
+function useDependency() {
+    var _this = this;
+    var _a = react_1.useState(this.state.value), a = _a[0], setA = _a[1];
+    react_1.useEffect(function () {
+        var name = new Date().getTime() + "+" + Math.random();
+        _this.dependency.set(name, function (value) {
+            setA(value);
+        });
+        return function () {
+            _this.dependency["delete"](name);
+        };
+    }, []);
+    return [
+        a,
+        function (value) {
+            _this.state.value = value;
+        },
+    ];
+}
 var HooksProxyStore = /** @class */ (function () {
     function HooksProxyStore(initValue) {
         this.addDependency = AddDependency;
+        this.useDependency = useDependency;
         this.dependency = new Map();
         if (window.Proxy && typeof window.Proxy === "function") {
             this.state = new Proxy({ value: initValue }, this._handler(this));
