@@ -48,10 +48,32 @@ function AddDependency(
   ];
 }
 
+function useDependency(this: HooksProxyStore): [stateValue, Function] {
+  const [a, setA] = useState(this.state.value);
+
+  useEffect(() => {
+    const name = `${new Date().getTime()}+${Math.random()}`
+    this.dependency.set(name, (value: stateValue) => {
+      setA(value);
+    });
+    return () => {
+      this.dependency.delete(name);
+    };
+  }, []);
+
+  return [
+    a,
+    (value: stateValue) => {
+      this.state.value = value;
+    },
+  ]
+}
+
 class HooksProxyStore {
   public dependency: Map<string, Function>;
   public state: stateType;
   public addDependency: Function = AddDependency;
+  public useDependency: Function = useDependency;
   constructor(initValue: stateValue) {
     this.dependency = new Map();
     if (window.Proxy && typeof window.Proxy === "function") {
