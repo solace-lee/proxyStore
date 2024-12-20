@@ -56,6 +56,7 @@ function useDependency(this: HooksProxyStore): [stateValue, Function] {
     this.dependency.set(name, (value: stateValue) => {
       setA(value);
     });
+    setA(this.state.value) // 防止在当前渲染周期内值被更改过
     return () => {
       this.dependency.delete(name);
     };

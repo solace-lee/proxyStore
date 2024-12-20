@@ -44,6 +44,7 @@ function useDependency() {
         _this.dependency.set(name, function (value) {
             setA(value);
         });
+        setA(_this.state.value); // 防止在当前渲染周期内值被更改过
         return function () {
             _this.dependency["delete"](name);
         };
